@@ -14,16 +14,46 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api", (req, res) => {
+    const array = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const array1 = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ];
     const date = new Date();
     res.json({
         unix: Number(date.getTime()),
-        utc: String(date.toUTCString()),
+        utc: String(
+            array[parseInt(date.getUTCDay())] +
+                ", " +
+                date.getDate() +
+                " " +
+                array1[parseInt(date.getMonth())] +
+                " " +
+                date.getFullYear() +
+                " " +
+                date.getHours() +
+                ":" +
+                date.getMinutes() +
+                ": " +
+                date.getSeconds() +
+                "GMT"
+        ),
     });
 });
 
 app.get("/api/:date", (req, res) => {
     const datestr = req.params.date;
-    //console.log(datestr);
+    console.log(datestr);
     let bool = 0;
     for (let i of datestr) {
         if (!(i >= "0" && i <= "9")) {
@@ -44,7 +74,7 @@ app.get("/api/:date", (req, res) => {
             });
         }
     } else {
-        const date = new Date(Number(datestr) * 1000);
+        const date = new Date(Number(datestr));
         if (isNaN(date) || !date) {
             res.json({
                 error: "Invalid Date",
