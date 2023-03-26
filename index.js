@@ -44,8 +44,9 @@ app.get("/api", (req, res) => {
                 date.getHours() +
                 ":" +
                 date.getMinutes() +
-                ": " +
+                ":" +
                 date.getSeconds() +
+                " " +
                 "GMT"
         ),
     });
