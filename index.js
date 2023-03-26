@@ -13,11 +13,12 @@ app.get("/", (req, res) => {
 app.get("/api", (req, res) => {
     const date = new Date();
     res.json({
-        unix: date.getTime(),
-        utc: date.toUTCString(),
+        unix: Number(date.getTime()),
+        utc: String(date.toUTCString()),
     });
 });
 
+/** 
 app.get("/api/:date", (req, res) => {
     const datestr = req.params.date;
     //console.log(datestr);
@@ -53,7 +54,7 @@ app.get("/api/:date", (req, res) => {
             });
         }
     }
-});
+});*/
 
 app.listen(PORT, () => {
     console.log("Server start at : " + PORT);
