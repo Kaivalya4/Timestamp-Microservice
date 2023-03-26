@@ -2,6 +2,9 @@ const express = require("express");
 
 const app = express();
 
+var cors = require("cors");
+app.use(cors({ optionsSuccessStatus: 200 }));
+
 const PORT = process.env.PORT || 5000;
 
 app.set("view engine", "ejs");
@@ -18,7 +21,6 @@ app.get("/api", (req, res) => {
     });
 });
 
-/** 
 app.get("/api/:date", (req, res) => {
     const datestr = req.params.date;
     //console.log(datestr);
@@ -54,7 +56,7 @@ app.get("/api/:date", (req, res) => {
             });
         }
     }
-});*/
+});
 
 app.listen(PORT, () => {
     console.log("Server start at : " + PORT);
