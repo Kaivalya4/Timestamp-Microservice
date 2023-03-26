@@ -19,13 +19,15 @@ app.get("/api", (req, res) => {
 });
 
 app.get("/api/:date", (req, res) => {
+    const date1 = Date.parse(req.params.date);
+    console.log(date1);
     const date = new Date(req.params.date);
     if (!date) {
-        res.send({ error: "Invalid Date" });
+        res.json({ error: "Invalid Date" });
     } else {
         res.json({
-            unix: date.getTime(),
-            utc: date.toUTCString(),
+            unix: Number(date.getTime()),
+            utc: String(date.toUTCString()),
         });
     }
 });
