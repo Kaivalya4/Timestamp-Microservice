@@ -19,10 +19,20 @@ app.get("/api", (req, res) => {
 });
 
 app.get("/api/:date", (req, res) => {
-    const date1 = Date.parse(req.params.date);
-    console.log(date1);
-    const date = new Date(req.params.date);
-    if (!date) {
+    const datestr = req.params.date;
+    if (datestr.includes("/") || datestr.includes("-")) {
+        const date = new Date(datestr);
+        if (!date) {
+            res.json({ error: "Invalid Date" });
+        } else {
+            res.json({
+                unix: Number(date.getTime()),
+                utc: String(date.toUTCString()),
+            });
+        }
+    }
+    let date = new Date(Number(datestr) * 1000);
+    if (isNaN(date)) {
         res.json({ error: "Invalid Date" });
     } else {
         res.json({
